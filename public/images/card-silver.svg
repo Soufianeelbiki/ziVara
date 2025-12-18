@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <defs>
+    <linearGradient id="silverGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e8e8e8"/>
+      <stop offset="50%" style="stop-color:#c0c0c0"/>
+      <stop offset="100%" style="stop-color:#a0a0a0"/>
+    </linearGradient>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e"/>
+      <stop offset="100%" style="stop-color:#0a0a15"/>
+    </linearGradient>
+  </defs>
+  
+  <rect width="400" height="300" fill="#050508"/>
+  
+  <!-- Card -->
+  <rect x="50" y="60" width="300" height="180" rx="12" fill="url(#bgGrad)"/>
+  <rect x="50" y="60" width="300" height="180" rx="12" fill="none" stroke="url(#silverGrad)" stroke-width="2"/>
+  
+  <!-- Silver foil stripe -->
+  <rect x="50" y="100" width="300" height="3" fill="url(#silverGrad)"/>
+  
+  <!-- Logo -->
+  <rect x="70" y="130" width="40" height="40" rx="6" fill="url(#silverGrad)" opacity="0.2"/>
+  <text x="90" y="160" font-family="serif" font-size="20" fill="#c0c0c0" text-anchor="middle">Z</text>
+  
+  <!-- Text lines -->
+  <rect x="130" y="140" width="100" height="6" rx="3" fill="#c0c0c0" opacity="0.5"/>
+  <rect x="130" y="155" width="70" height="4" rx="2" fill="#ffffff" opacity="0.2"/>
+  
+  <!-- Bottom accent -->
+  <rect x="70" y="200" width="260" height="20" rx="4" fill="url(#silverGrad)" opacity="0.1"/>
+</svg>

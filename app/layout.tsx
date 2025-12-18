@@ -1,23 +1,28 @@
-import type React from "react"
-import type { Metadata } from "next"
-import { Playfair_Display, Montserrat } from "next/font/google"
-import { Analytics } from "@vercel/analytics/next"
-import "./globals.css"
+import type React from "react";
+import type { Metadata } from "next";
+import { Playfair_Display, Montserrat } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
+import { ScrollProgress } from "@/components/scroll-progress";
+import { BackToTop } from "@/components/back-to-top";
+import { RobeEntrance } from "@/components/robe-entrance";
+import { CornerSilhouettes } from "@/components/corner-silhouettes";
+import "./globals.css";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   variable: "--font-playfair",
-})
+});
 const montserrat = Montserrat({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600"],
   variable: "--font-montserrat",
-})
+});
 
 export const metadata: Metadata = {
-  title: "ZIVARA | Exclusive Styling for the Elite",
-  description: "Curated excellence for those who demand the extraordinary. Personal styling that transcends fashion.",
+  title: "ZIVARA | Stylisme exclusif pour l’élite",
+  description:
+    "Une excellence sélectionnée pour celles et ceux qui exigent l’extraordinaire. Un stylisme personnel qui dépasse la mode.",
   generator: "v0.app",
   icons: {
     icon: [
@@ -36,19 +41,25 @@ export const metadata: Metadata = {
     ],
     apple: "/apple-icon.png",
   },
-}
+};
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${playfair.variable} ${montserrat.variable} font-sans antialiased`}>
+    <html lang="fr">
+      <body
+        className={`${playfair.variable} ${montserrat.variable} font-sans antialiased`}
+      >
+        <RobeEntrance />
+        <CornerSilhouettes />
+        <ScrollProgress />
+        <BackToTop />
         {children}
         <Analytics />
       </body>
     </html>
-  )
+  );
 }

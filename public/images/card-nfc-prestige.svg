@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250" fill="none">
+  <defs>
+    <linearGradient id="prestigeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a1a"/>
+      <stop offset="30%" style="stop-color:#2a2520"/>
+      <stop offset="70%" style="stop-color:#1a1815"/>
+      <stop offset="100%" style="stop-color:#0a0a0a"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#d4af37"/>
+      <stop offset="50%" style="stop-color:#f4d03f"/>
+      <stop offset="100%" style="stop-color:#b8860b"/>
+    </linearGradient>
+    <linearGradient id="goldShine" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:rgba(212,175,55,0)"/>
+      <stop offset="50%" style="stop-color:rgba(244,208,63,0.3)"/>
+      <stop offset="100%" style="stop-color:rgba(212,175,55,0)"/>
+    </linearGradient>
+    <filter id="goldGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="glow"/>
+      <feMerge>
+        <feMergeNode in="glow"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <pattern id="brushedMetal" patternUnits="userSpaceOnUse" width="4" height="4">
+      <rect width="4" height="4" fill="rgba(255,255,255,0.02)"/>
+      <line x1="0" y1="0" x2="4" y2="0" stroke="rgba(255,255,255,0.03)" stroke-width="0.5"/>
+    </pattern>
+  </defs>
+  
+  <!-- Card Base -->
+  <rect width="400" height="250" rx="16" fill="url(#prestigeGrad)"/>
+  
+  <!-- Brushed Metal Texture -->
+  <rect width="400" height="250" rx="16" fill="url(#brushedMetal)"/>
+  
+  <!-- Gold Border -->
+  <rect x="2" y="2" width="396" height="246" rx="14" fill="none" stroke="url(#goldGrad)" stroke-width="2"/>
+  
+  <!-- NFC Symbol with Gold -->
+  <g transform="translate(30, 25)" filter="url(#goldGlow)">
+    <path d="M0 25 Q0 0 25 0 L55 0 Q80 0 80 25 L80 55 Q80 80 55 80 L25 80 Q0 80 0 55 Z" 
+          fill="none" stroke="url(#goldGrad)" stroke-width="2.5"/>
+    <path d="M25 40 C25 30 35 25 40 25" fill="none" stroke="#d4af37" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M25 40 C25 20 45 15 55 15" fill="none" stroke="#d4af37" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M25 40 C25 10 55 5 70 5" fill="none" stroke="#d4af37" stroke-width="2.5" stroke-linecap="round"/>
+    <circle cx="25" cy="40" r="5" fill="url(#goldGrad)"/>
+  </g>
+  
+  <!-- Titanium Badge -->
+  <g transform="translate(290, 25)">
+    <rect width="80" height="24" rx="12" fill="rgba(212,175,55,0.15)" stroke="url(#goldGrad)" stroke-width="1"/>
+    <text x="40" y="16" text-anchor="middle" fill="url(#goldGrad)" font-family="system-ui" font-size="9" font-weight="600" letter-spacing="0.1em">TITANIUM</text>
+  </g>
+  
+  <!-- QR Code with Gold Frame -->
+  <g transform="translate(305, 140)">
+    <rect x="-5" y="-5" width="85" height="85" rx="6" fill="none" stroke="url(#goldGrad)" stroke-width="1.5"/>
+    <rect width="75" height="75" rx="4" fill="rgba(255,255,255,0.95)"/>
+    <g transform="translate(5, 5)" fill="#1a1a1a">
+      <rect x="0" y="0" width="22" height="22"/>
+      <rect x="43" y="0" width="22" height="22"/>
+      <rect x="0" y="43" width="22" height="22"/>
+      <rect x="5" y="5" width="12" height="12" fill="white"/>
+      <rect x="48" y="5" width="12" height="12" fill="white"/>
+      <rect x="5" y="48" width="12" height="12" fill="white"/>
+      <rect x="27" y="0" width="5" height="5"/>
+      <rect x="27" y="11" width="5" height="5"/>
+      <rect x="27" y="27" width="5" height="5"/>
+      <rect x="38" y="27" width="5" height="5"/>
+      <rect x="27" y="43" width="5" height="5"/>
+      <rect x="38" y="49" width="5" height="5"/>
+      <rect x="49" y="38" width="5" height="5"/>
+      <rect x="60" y="49" width="5" height="5"/>
+      <rect x="60" y="60" width="5" height="5"/>
+    </g>
+  </g>
+  
+  <!-- Brand with Gold Accent -->
+  <text x="30" y="145" fill="url(#goldGrad)" font-family="system-ui" font-size="32" font-weight="700" letter-spacing="0.12em" filter="url(#goldGlow)">ZIVARA</text>
+  <text x="30" y="172" fill="#d4af37" font-family="system-ui" font-size="16" font-weight="600" letter-spacing="0.25em">PRESTIGE</text>
+  
+  <!-- Gold Decorative Elements -->
+  <rect x="30" y="185" width="120" height="2" fill="url(#goldGrad)"/>
+  <circle cx="155" cy="186" r="3" fill="url(#goldGrad)"/>
+  
+  <!-- Card Info -->
+  <text x="30" y="210" fill="rgba(212,175,55,0.8)" font-family="system-ui" font-size="11" letter-spacing="0.12em">NFC PREMIUM + QR CODE</text>
+  <text x="30" y="228" fill="rgba(255,255,255,0.5)" font-family="system-ui" font-size="9" letter-spacing="0.08em">MÉTAL GRAVÉ LASER • OR 24K</text>
+  
+  <!-- Corner Accents -->
+  <path d="M385 16 L385 30" stroke="url(#goldGrad)" stroke-width="1.5"/>
+  <path d="M370 16 L385 16" stroke="url(#goldGrad)" stroke-width="1.5"/>
+  <path d="M15 234 L15 220" stroke="url(#goldGrad)" stroke-width="1.5"/>
+  <path d="M15 234 L30 234" stroke="url(#goldGrad)" stroke-width="1.5"/>
+</svg>

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <defs>
+    <linearGradient id="crystalGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e8f4f8"/>
+      <stop offset="50%" style="stop-color:#c5dde8"/>
+      <stop offset="100%" style="stop-color:#a8c8d8"/>
+    </linearGradient>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f1a1f"/>
+      <stop offset="100%" style="stop-color:#050a0d"/>
+    </linearGradient>
+    <linearGradient id="goldAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#d4af37"/>
+      <stop offset="100%" style="stop-color:#f5e7a3"/>
+    </linearGradient>
+  </defs>
+  
+  <rect width="400" height="300" fill="#050508"/>
+  
+  <!-- Crystal clear card -->
+  <rect x="50" y="60" width="300" height="180" rx="8" fill="url(#bgGrad)" opacity="0.9"/>
+  <rect x="50" y="60" width="300" height="180" rx="8" fill="none" stroke="url(#crystalGrad)" stroke-width="2"/>
+  
+  <!-- Frosted glass effect -->
+  <rect x="60" y="70" width="280" height="160" rx="4" fill="url(#crystalGrad)" opacity="0.05"/>
+  
+  <!-- Diamond shape logo -->
+  <polygon points="200,80 230,130 200,180 170,130" fill="none" stroke="url(#crystalGrad)" stroke-width="1.5"/>
+  <text x="200" y="138" font-family="serif" font-size="24" fill="#c5dde8" text-anchor="middle">Z</text>
+  
+  <!-- Facet lines -->
+  <line x1="200" y1="80" x2="170" y2="130" stroke="url(#crystalGrad)" stroke-width="0.5" opacity="0.5"/>
+  <line x1="200" y1="80" x2="230" y2="130" stroke="url(#crystalGrad)" stroke-width="0.5" opacity="0.5"/>
+  <line x1="200" y1="180" x2="170" y2="130" stroke="url(#crystalGrad)" stroke-width="0.5" opacity="0.5"/>
+  <line x1="200" y1="180" x2="230" y2="130" stroke="url(#crystalGrad)" stroke-width="0.5" opacity="0.5"/>
+  
+  <!-- Text -->
+  <rect x="250" y="100" width="80" height="6" rx="2" fill="url(#goldAccent)" opacity="0.6"/>
+  <rect x="250" y="115" width="60" height="4" rx="2" fill="#c5dde8" opacity="0.3"/>
+</svg>
