@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, memo } from "react";
 
 // Seeded random for consistent SSR/client rendering
 function seededRandom(seed: number): number {
@@ -9,75 +9,53 @@ function seededRandom(seed: number): number {
   return x - Math.floor(x);
 }
 
-// Floating card particles - enhanced
-function CardParticles() {
+// Floating card particles - optimized
+const CardParticles = memo(function CardParticles() {
   const particles = useMemo(() => {
-    return Array.from({ length: 25 }, (_, i) => ({
+    return Array.from({ length: 12 }, (_, i) => ({
       id: i,
       x: seededRandom(i * 1.2 + 10) * 100,
       y: seededRandom(i * 2.3 + 20) * 100,
-      size: 25 + seededRandom(i * 3.4 + 30) * 50,
+      size: 30 + seededRandom(i * 3.4 + 30) * 40,
       rotation: seededRandom(i * 4.5 + 40) * 360,
       delay: seededRandom(i * 5.6 + 50) * 2,
     }));
   }, []);
 
   return (
-    <div className="absolute inset-0 overflow-hidden">
+    <div className="absolute inset-0 overflow-hidden will-change-transform">
       {particles.map((p) => (
-        <motion.div
+        <div
           key={p.id}
-          className="absolute rounded-lg border border-gold/20 bg-gradient-to-br from-gold/5 to-transparent backdrop-blur-[1px]"
+          className="absolute rounded-lg border border-gold/20 bg-gold/5 animate-float-card"
           style={{
             left: `${p.x}%`,
             top: `${p.y}%`,
             width: p.size,
             height: p.size * 0.62,
-          }}
-          initial={{ opacity: 0, rotate: p.rotation, scale: 0 }}
-          animate={{
-            opacity: [0, 0.5, 0],
-            rotate: p.rotation + 30,
-            scale: [0, 1, 0.8],
-            y: [-30, 30],
-          }}
-          transition={{
-            duration: 4,
-            delay: p.delay,
-            repeat: Infinity,
-            ease: "easeInOut",
+            transform: `rotate(${p.rotation}deg)`,
+            animationDelay: `${p.delay}s`,
           }}
         />
       ))}
     </div>
   );
-}
+});
 
-// NFC Pulse Animation
-function NFCPulse() {
+// NFC Pulse Animation - CSS optimized
+const NFCPulse = memo(function NFCPulse() {
   return (
     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
       {[0, 1, 2].map((i) => (
-        <motion.div
+        <div
           key={i}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-gold/20"
-          initial={{ width: 100, height: 100, opacity: 0 }}
-          animate={{
-            width: [100, 350],
-            height: [100, 350],
-            opacity: [0.5, 0],
-          }}
-          transition={{
-            duration: 2.5,
-            delay: i * 0.7,
-            repeat: Infinity,
-            ease: "easeOut",
-          }}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-gold/20 animate-nfc-pulse"
+          style={{ animationDelay: `${i * 0.7}s` }}
         />
       ))}
     </div>
   );
-}
+});
 
 // Main card - enhanced with NFC chip
 function MainCard({ stage, isExiting }: { stage: number; isExiting: boolean }) {

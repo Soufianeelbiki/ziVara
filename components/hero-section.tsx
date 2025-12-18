@@ -7,7 +7,7 @@ import {
   useMotionValue,
   useSpring,
 } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useMemo, memo } from "react";
 import { CreditCard, Layers, Sparkles, Gem, Shield } from "lucide-react";
 import { SectionWrapper } from "./section-wrapper";
 import { CardPattern, FloatingCards } from "./card-pattern";
@@ -194,48 +194,36 @@ function FloatingElements() {
   );
 }
 
-// Animated gradient orbs
-function GradientOrbs() {
+// Animated gradient orbs - CSS optimized
+const GradientOrbs = memo(function GradientOrbs() {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
       {/* Large gold orb */}
-      <motion.div
-        className="absolute -top-1/4 -right-1/4 w-[600px] h-[600px] md:w-[800px] md:h-[800px]"
-        animate={{
-          scale: [1, 1.1, 1],
-          rotate: [0, 90, 0],
-        }}
-        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+      <div
+        className="absolute -top-1/4 -right-1/4 w-[600px] h-[600px] md:w-[800px] md:h-[800px] animate-spin-slow"
+        style={{ animationDuration: "20s" }}
       >
         <div className="w-full h-full rounded-full bg-gradient-to-br from-gold/10 via-transparent to-transparent blur-3xl" />
-      </motion.div>
+      </div>
 
       {/* Accent orb */}
-      <motion.div
-        className="absolute -bottom-1/4 -left-1/4 w-[500px] h-[500px] md:w-[700px] md:h-[700px]"
-        animate={{
-          scale: [1, 1.15, 1],
-          rotate: [0, -90, 0],
-        }}
-        transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+      <div
+        className="absolute -bottom-1/4 -left-1/4 w-[500px] h-[500px] md:w-[700px] md:h-[700px] animate-spin-slow"
+        style={{ animationDuration: "25s", animationDirection: "reverse" }}
       >
         <div className="w-full h-full rounded-full bg-gradient-to-tr from-accent/10 via-transparent to-transparent blur-3xl" />
-      </motion.div>
+      </div>
 
       {/* Center pulse */}
-      <motion.div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] md:w-[500px] md:h-[500px]"
-        animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.3, 0.5, 0.3],
-        }}
-        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+      <div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] md:w-[500px] md:h-[500px] animate-pulse"
+        style={{ animationDuration: "4s" }}
       >
         <div className="w-full h-full rounded-full bg-gradient-radial from-white/5 to-transparent" />
-      </motion.div>
+      </div>
     </div>
   );
-}
+});
 
 // Seeded random for SSR consistency
 function seededRandom(seed: number): number {
@@ -243,32 +231,35 @@ function seededRandom(seed: number): number {
   return x - Math.floor(x);
 }
 
-// Particle field effect - using deterministic positions
-function ParticleField() {
-  const particles = Array.from({ length: 20 }, (_, i) => ({
-    id: i,
-    x: seededRandom(i * 1.1 + 100) * 100,
-    y: seededRandom(i * 2.2 + 200) * 100,
-    size: Math.max(1, seededRandom(i * 3.3 + 300) * 3 + 1),
-    duration: Math.max(3, seededRandom(i * 4.4 + 400) * 3 + 3),
-    delay: seededRandom(i * 5.5 + 500) * 2,
-  }));
+// Particle field effect - CSS optimized with fewer particles
+const ParticleField = memo(function ParticleField() {
+  const particles = useMemo(
+    () =>
+      Array.from({ length: 12 }, (_, i) => ({
+        id: i,
+        x: seededRandom(i * 1.1 + 100) * 100,
+        y: seededRandom(i * 2.2 + 200) * 100,
+        size: Math.max(1, seededRandom(i * 3.3 + 300) * 3 + 1),
+        duration: Math.max(3, seededRandom(i * 4.4 + 400) * 3 + 3),
+        delay: seededRandom(i * 5.5 + 500) * 2,
+        isGold: i % 3 === 0,
+      })),
+    []
+  );
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
       {particles.map((particle) => (
         <div
           key={particle.id}
-          className="absolute rounded-full animate-pulse"
+          className={`absolute rounded-full animate-pulse ${
+            particle.isGold ? "bg-gold/40" : "bg-white/20"
+          }`}
           style={{
             left: `${particle.x}%`,
             top: `${particle.y}%`,
             width: particle.size,
             height: particle.size,
-            backgroundColor:
-              particle.id % 3 === 0
-                ? "rgba(212,175,55,0.4)"
-                : "rgba(255,255,255,0.2)",
             animationDelay: `${particle.delay}s`,
             animationDuration: `${particle.duration}s`,
           }}
@@ -276,7 +267,7 @@ function ParticleField() {
       ))}
     </div>
   );
-}
+});
 
 export function HeroSection() {
   const ref = useRef(null);

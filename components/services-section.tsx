@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo, memo } from "react";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import {
   Crown,
@@ -71,27 +71,37 @@ function AnimatedCounter({
   );
 }
 
-// Floating particles effect
+// Seeded random for SSR consistency
+function seededRandom(seed: number): number {
+  const x = Math.sin(seed) * 10000;
+  return x - Math.floor(x);
+}
+
+// Floating particles effect - CSS optimized
 function FloatingParticles() {
+  const particles = useMemo(
+    () =>
+      Array.from({ length: 10 }, (_, i) => ({
+        id: i,
+        x: seededRandom(i * 1.5 + 10) * 100,
+        y: seededRandom(i * 2.5 + 20) * 100,
+        delay: seededRandom(i * 3.5 + 30) * 2,
+        duration: 3 + seededRandom(i * 4.5 + 40) * 2,
+      })),
+    []
+  );
+
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {Array.from({ length: 20 }).map((_, i) => (
-        <motion.div
-          key={i}
-          className="absolute w-1 h-1 rounded-full bg-gold/30"
+      {particles.map((p) => (
+        <div
+          key={p.id}
+          className="absolute w-1 h-1 rounded-full bg-gold/40 animate-pulse"
           style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-          }}
-          animate={{
-            y: [-20, 20, -20],
-            opacity: [0.3, 0.8, 0.3],
-            scale: [1, 1.5, 1],
-          }}
-          transition={{
-            duration: 3 + Math.random() * 2,
-            repeat: Infinity,
-            delay: Math.random() * 2,
+            left: `${p.x}%`,
+            top: `${p.y}%`,
+            animationDelay: `${p.delay}s`,
+            animationDuration: `${p.duration}s`,
           }}
         />
       ))}

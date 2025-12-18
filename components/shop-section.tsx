@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useMemo, useCallback } from "react";
+import { useState, useRef, useMemo, useCallback, memo } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import {
   premiumCards,
@@ -33,10 +33,10 @@ function seededRandom(seed: number): number {
   return x - Math.floor(x);
 }
 
-// Lightweight starfield with CSS animations
-function ShopStarfield() {
+// Lightweight starfield with CSS animations - reduced count
+const ShopStarfield = memo(function ShopStarfield() {
   const stars = useMemo(() => {
-    return Array.from({ length: 30 }, (_, i) => ({
+    return Array.from({ length: 15 }, (_, i) => ({
       id: i,
       x: seededRandom(i * 1.5) * 100,
       y: seededRandom(i * 2.5) * 100,
@@ -62,7 +62,7 @@ function ShopStarfield() {
       ))}
     </div>
   );
-}
+});
 
 // Premium NFC Card Component
 function PremiumCardShowcase({

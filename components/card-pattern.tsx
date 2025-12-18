@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { memo, useMemo } from "react";
 
 interface CardPatternProps {
   variant?: "grid" | "emboss" | "foil" | "geometric";
@@ -253,88 +254,52 @@ function GeometricPattern() {
   );
 }
 
-// Animated floating business cards for hero background
-export function FloatingCards() {
-  const cards = [
-    { x: "10%", y: "20%", rotate: -15, scale: 0.6, delay: 0 },
-    { x: "75%", y: "15%", rotate: 20, scale: 0.5, delay: 0.5 },
-    { x: "85%", y: "60%", rotate: -10, scale: 0.7, delay: 1 },
-    { x: "5%", y: "70%", rotate: 25, scale: 0.55, delay: 1.5 },
-    { x: "50%", y: "80%", rotate: -5, scale: 0.4, delay: 2 },
-  ];
+// Animated floating business cards for hero background - optimized
+export const FloatingCards = memo(function FloatingCards() {
+  const cards = useMemo(
+    () => [
+      { x: "10%", y: "20%", rotate: -15, scale: 0.6, delay: 0 },
+      { x: "75%", y: "15%", rotate: 20, scale: 0.5, delay: 0.5 },
+      { x: "85%", y: "60%", rotate: -10, scale: 0.7, delay: 1 },
+    ],
+    []
+  );
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
       {cards.map((card, i) => (
-        <motion.div
+        <div
           key={i}
-          className="absolute"
+          className="absolute animate-gentle-float"
           style={{
             left: card.x,
             top: card.y,
             width: 200 * card.scale,
             height: 120 * card.scale,
-          }}
-          initial={{ opacity: 0, scale: 0, rotate: card.rotate }}
-          animate={{
-            opacity: [0, 0.3, 0.3],
-            scale: [0, card.scale, card.scale],
-            rotate: [card.rotate, card.rotate + 5, card.rotate],
-            y: [0, -15, 0],
-          }}
-          transition={{
-            opacity: { duration: 1, delay: card.delay },
-            scale: { duration: 1, delay: card.delay },
-            rotate: {
-              duration: 6,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: card.delay + 1,
-            },
-            y: {
-              duration: 5,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: card.delay + 1,
-            },
+            transform: `rotate(${card.rotate}deg)`,
+            opacity: 0.3,
+            animationDelay: `${card.delay}s`,
           }}
         >
           {/* Business card shape */}
-          <div className="relative w-full h-full rounded-lg border border-gold/20 bg-gradient-to-br from-[#1a1a2e]/80 to-[#0a0a15]/80 backdrop-blur-sm shadow-2xl overflow-hidden">
-            {/* Foil shine effect */}
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-transparent via-gold/20 to-transparent"
-              animate={{
-                x: ["-100%", "200%"],
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                repeatDelay: 2,
-                delay: card.delay,
-              }}
-            />
+          <div className="relative w-full h-full rounded-lg border border-gold/20 bg-gradient-to-br from-[#1a1a2e]/80 to-[#0a0a15]/80 shadow-2xl overflow-hidden">
+            {/* Shine effect */}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-gold/20 to-transparent animate-shine" />
 
             {/* Card content placeholder */}
             <div className="absolute inset-0 p-3 flex flex-col justify-between">
-              {/* Logo placeholder */}
               <div className="w-6 h-6 rounded bg-gold/20" />
-
-              {/* Text lines */}
               <div className="space-y-1">
                 <div className="h-1.5 w-16 bg-gold/30 rounded" />
                 <div className="h-1 w-12 bg-white/10 rounded" />
               </div>
             </div>
-
-            {/* Corner accent */}
-            <div className="absolute bottom-0 right-0 w-8 h-8 bg-gradient-to-tl from-gold/10 to-transparent" />
           </div>
-        </motion.div>
+        </div>
       ))}
     </div>
   );
-}
+});
 
 // Animated card stack for hero
 export function CardStackHero() {

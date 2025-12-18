@@ -1,12 +1,7 @@
 "use client";
 
-import {
-  motion,
-  AnimatePresence,
-  useMotionValue,
-  useTransform,
-} from "framer-motion";
-import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState, memo, useMemo } from "react";
 import { Quote, ChevronLeft, ChevronRight, Star, Wifi } from "lucide-react";
 import { SectionWrapper } from "./section-wrapper";
 
@@ -77,50 +72,32 @@ function TestimonialCard({
     <motion.div
       initial={{
         opacity: 0,
-        x: direction * 100,
-        rotateY: direction * 15,
-        scale: 0.9,
+        x: direction * 50,
+        scale: 0.95,
       }}
-      animate={{ opacity: 1, x: 0, rotateY: 0, scale: 1 }}
+      animate={{ opacity: 1, x: 0, scale: 1 }}
       exit={{
         opacity: 0,
-        x: direction * -100,
-        rotateY: direction * -15,
-        scale: 0.9,
+        x: direction * -50,
+        scale: 0.95,
       }}
-      transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
-      className={`relative bg-gradient-to-br ${tier.bg} rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 lg:p-12 border ${tier.border} backdrop-blur-sm overflow-hidden`}
-      style={{ transformStyle: "preserve-3d" }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
+      className={`relative bg-gradient-to-br ${tier.bg} rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 lg:p-12 border ${tier.border} overflow-hidden`}
     >
-      {/* Shine effect */}
-      <motion.div
-        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -skew-x-12 pointer-events-none"
-        animate={{ x: ["-150%", "150%"] }}
-        transition={{ duration: 4, repeat: Infinity, repeatDelay: 2 }}
-      />
+      {/* Shine effect - CSS animation */}
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -skew-x-12 pointer-events-none animate-shine" />
 
-      {/* NFC icon */}
-      <motion.div
-        className="absolute top-4 right-4 sm:top-6 sm:right-6"
-        animate={{ opacity: [0.3, 0.7, 0.3] }}
-        transition={{ duration: 2, repeat: Infinity }}
-      >
+      {/* NFC icon - CSS animation */}
+      <div className="absolute top-4 right-4 sm:top-6 sm:right-6 animate-pulse">
         <Wifi
           className={`w-5 h-5 sm:w-6 sm:h-6 ${tier.accent} opacity-30 rotate-45`}
         />
-      </motion.div>
+      </div>
 
-      {/* Rating stars */}
+      {/* Rating stars - simplified */}
       <div className="flex items-center gap-1 sm:gap-1.5 mb-4 sm:mb-6">
         {[...Array(testimonial.rating)].map((_, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, scale: 0 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: i * 0.1 }}
-          >
-            <Star className="w-4 h-4 sm:w-5 sm:h-5 fill-gold text-gold" />
-          </motion.div>
+          <Star key={i} className="w-4 h-4 sm:w-5 sm:h-5 fill-gold text-gold" />
         ))}
       </div>
 
