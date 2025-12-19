@@ -9,8 +9,9 @@ const nextConfig = {
   // GitHub Pages deployment settings
   output: 'export',
   trailingSlash: true,
-  // Uncomment and change 'ziVara' to your repo name if deploying to username.github.io/repo-name
-  // basePath: '/ziVara',
+  // For deploying to username.github.io/ziVara
+  basePath: '/ziVara',
+  assetPrefix: '/ziVara/',
 }
 
 export default nextConfig
